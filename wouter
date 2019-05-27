@@ -1,43 +1,27 @@
-#!/usr/bin/env Rscript
+present_time=$1
+grace_time=$2
+count_down=$3
+beginning=$4
+total_time=$(($present_time+$grace_time))
+say $beginning
+for current in $( seq $total_time 0 )
+do
+    clear
+    echo $beginning
+    toilet -f bigmono9 --gay --termwidth $current
+    sleep 1
+    if [ "$current" -eq "$grace_time" ]
+    then
+	afplay smb_warning.wav
+    fi
+    if [ "$current" -lt "$count_down" ]
+    then
+	afplay smb_coin.wav
+    fi
+done
+clear
+afplay smb_mariodie.wav
+toilet -f bigmono9 --gay --termwidth Time Over!
+say "Please Clap."
+sleep 5
 
-require(beepr)
-args <- commandArgs(trailingOnly=TRUE)
-
-presentation_time <- as.numeric(args[1])
-grace <- as.numeric(args[2])
-final_time <- as.numeric(args[3])
-if (length(args) >= 4) {
-    intro <- paste(args[4:length(args)], collapse = " ")
-} else {
-    intro <- ""
-}
-
-cls <- function() cat(rep("\n",100))
-
-wouter <- function(presentation_time = 480, grace = 60, final_time = 10, intro = "") {
-    cls(); system(paste0("say '", intro, "'"))
-    total_time <- presentation_time + grace + final_time
-    print(total_time)
-    while(total_time != 0) {
-        total_time <- total_time - 1
-        cls()
-        cat(paste0(intro, "\n"))
-        cat(paste0(total_time, "\n"))
-        if (total_time == (grace + final_time)) {
-            beep(sound = 2)
-        }
-        if (total_time < grace + final_time) {
-            cat("Grace period! Wrap up your talk! \n")
-        }
-        Sys.sleep(1)
-        if (total_time <= final_time) {
-            beep(sound = 10)
-        }
-    }
-    cls()
-    system("say Time is up! Please clap!")
-    beep(sound = 3)
-    Sys.sleep(5)
-}
-
-wouter(presentation_time, grace, final_time, intro)
