@@ -9,7 +9,11 @@ for current in $( seq $total_time 0 )
 do
     clear
     echo $beginning
-    toilet -f bigmono9 --gay --termwidth $current
+    if [ "$current" -lt "$grace_time" ]
+    then
+	echo Grace Period!
+    fi
+    toilet -f bigmono12 --gay --termwidth $current
     sleep 1
     if [ "$current" -eq "$grace_time" ]
     then
@@ -21,8 +25,8 @@ do
     fi
 done
 clear
+toilet -f bigmono9 --gay --termwidth Time is up!
 afplay smb_mariodie.wav
-toilet -f bigmono9 --gay --termwidth Time Over!
 say "Please Clap."
 sleep 5
 
