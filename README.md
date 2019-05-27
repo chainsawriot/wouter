@@ -6,6 +6,8 @@ A very shell script to replace session chairs. After the countdown (official pre
 
 Currently it only works on a Mac.
 
+**Requirement:** toilet, afplay (Mac-internal), say (Mac-internal)
+
 ## Usage
 wouter [presentation time] [grace period] [countdown] [announcement]
 

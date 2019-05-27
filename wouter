@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 present_time=$1
 grace_time=$2
 count_down=$3
